@@ -1,0 +1,227 @@
+LOOPBACK INTERFACE CONFIGURATION ON FORTIGATE FIREWALL GUI (GRAPHICAL USER INTERFACE)
+
+FORTIGATE FIRWALL
+
+FortiGate-VM64-KVM login: admin
+Password:
+You are forced to change your password. Please input a new password.
+New Password:
+Confirm Password:
+New passwords don't match.
+New Password:
+Confirm Password:
+Welcome!
+
+FortiGate-VM64-KVM # show system interface
+config system interface
+    edit "port1"
+        set vdom "root"
+        set mode dhcp
+        set allowaccess ping https ssh http fgfm
+        set type physical
+        set snmp-index 1
+    next
+    edit "port2"
+        set vdom "root"
+        set type physical
+        set snmp-index 2
+    next
+    edit "port3"
+        set vdom "root"
+        set type physical
+        set snmp-index 3
+    next
+    edit "port4"
+        set vdom "root"
+        set type physical
+        set snmp-index 4
+    next
+    edit "port5"
+        set vdom "root"
+        set type physical
+        set snmp-index 5
+    next
+    edit "port6"
+        set vdom "root"
+        set type physical
+        set snmp-index 6
+    next
+    edit "port7"
+        set vdom "root"
+        set type physical
+        set snmp-index 7
+    next
+    edit "port8"
+        set vdom "root"
+        set type physical
+        set snmp-index 8
+    next
+    edit "port9"
+        set vdom "root"
+        set type physical
+        set snmp-index 9
+    next
+    edit "port10"
+        set vdom "root"
+        set type physical
+        set snmp-index 10
+    next
+    edit "naf.root"
+        set vdom "root"
+        set type tunnel
+        set src-check disable
+        set snmp-index 11
+    next
+    edit "l2t.root"
+        set vdom "root"
+        set type tunnel
+        set snmp-index 12
+    next
+    edit "ssl.root"
+        set vdom "root"
+        set type tunnel
+        set alias "SSL VPN interface"
+        set snmp-index 13
+    next
+    edit "fortilink"
+        set vdom "root"
+        set fortilink enable
+        set ip 10.255.1.1 255.255.255.0
+        set allowaccess ping fabric
+        set type aggregate
+        set lldp-reception enable
+        set lldp-transmission enable
+        set snmp-index 14
+    next
+end
+
+FortiGate-VM64-KVM # show system interface
+name    Name.
+fortilink   static   0.0.0.0 0.0.0.0  10.255.1.1 255.255.255.0  up   disable   aggregate
+l2t.root   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   tunnel
+naf.root   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   tunnel
+port1   dhcp   0.0.0.0 0.0.0.0  192.168.208.132 255.255.255.0  up   disable   physical
+port2   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical
+port3   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical
+port4   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical
+port5   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical
+port6   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical
+port7   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical
+port8   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical
+port9   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical
+port10   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical
+ssl.root   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   tunnel
+
+FortiGate-VM64-KVM # show system interface
+FortiGate-VM64-KVM # config system interface
+
+FortiGate-VM64-KVM (interface) # edit port1
+
+FortiGate-VM64-KVM (port1) # set allowaccess http https ping ssh
+
+FortiGate-VM64-KVM (port1) # end
+
+FortiGate-VM64-KVM # Timeout
+
+
+FortiGate-VM64-KVM login: admin
+Password:
+Welcome!
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+PC IP CONFIG
+
+PC1>
+PC1> ip 192.168.1.1/24 192.168.1.100
+Checking for duplicate address...
+PC1 : 192.168.1.1 255.255.255.0 gateway 192.168.1.100
+
+PC1> ping 192.168.1.100
+
+84 bytes from 192.168.1.100 icmp_seq=1 ttl=255 time=0.332 ms
+84 bytes from 192.168.1.100 icmp_seq=2 ttl=255 time=0.781 ms
+84 bytes from 192.168.1.100 icmp_seq=3 ttl=255 time=0.721 ms
+84 bytes from 192.168.1.100 icmp_seq=4 ttl=255 time=0.619 ms
+84 bytes from 192.168.1.100 icmp_seq=5 ttl=255 time=0.518 ms
+
+PC1> ping 192.168.2.100
+
+84 bytes from 192.168.2.100 icmp_seq=1 ttl=255 time=1.254 ms
+84 bytes from 192.168.2.100 icmp_seq=2 ttl=255 time=0.599 ms
+84 bytes from 192.168.2.100 icmp_seq=3 ttl=255 time=0.470 ms
+84 bytes from 192.168.2.100 icmp_seq=4 ttl=255 time=0.863 ms
+84 bytes from 192.168.2.100 icmp_seq=5 ttl=255 time=1.063 ms
+
+PC1> ping 192.168.3.1
+
+84 bytes from 192.168.3.1 icmp_seq=1 ttl=254 time=5.400 ms
+84 bytes from 192.168.3.1 icmp_seq=2 ttl=254 time=17.307 ms
+84 bytes from 192.168.3.1 icmp_seq=3 ttl=254 time=13.609 ms
+84 bytes from 192.168.3.1 icmp_seq=4 ttl=254 time=9.556 ms
+84 bytes from 192.168.3.1 icmp_seq=5 ttl=254 time=9.941 ms
+
+PC1>
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ROUTER 
+
+
+R1#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R1(config)#int f0/0
+R1(config-if)#ip add 192.168.3.1 255.255.255.0
+R1(config-if)#no sh
+R1(config-if)#ex
+R1(config)#
+*Aug  9 23:35:06.795: %LINK-3-UPDOWN: Interface FastEthernet0/0, changed state to up
+*Aug  9 23:35:07.795: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/0, changed state to up
+R1(config)#ip route 0.0.0.0 0.0.0.0. 192.168.3.100
+                                   ^
+% Invalid input detected at '^' marker.
+
+R1(config)#ip route 0.0.0.0 0.0.0.0 192.168.3.100
+R1(config)#do sh ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route, H - NHRP, l - LISP
+       a - application route
+       + - replicated route, % - next hop override
+
+Gateway of last resort is 192.168.3.100 to network 0.0.0.0
+
+S*    0.0.0.0/0 [1/0] via 192.168.3.100
+      192.168.3.0/24 is variably subnetted, 2 subnets, 2 masks
+C        192.168.3.0/24 is directly connected, FastEthernet0/0
+L        192.168.3.1/32 is directly connected, FastEthernet0/0
+R1(config)#
+R1(config)#
+R1(config)#
+R1(config)#do ping 192.168.2.100
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 192.168.2.100, timeout is 2 seconds:
+.!!!!
+Success rate is 80 percent (4/5), round-trip min/avg/max = 16/16/16 ms
+R1(config)#do ping 192.168.1.100
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 192.168.1.100, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 12/15/16 ms
+R1(config)#do ping 192.168.1.1
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 192.168.1.1, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 16/16/16 ms
+R1(config)#X{E'z}
+R1#R}p
+*Aug  9 23:47:29.199: %SYS-5-CONFIG_I: Configured from console by console
+R1#R}p
+
+
+________________________________________________________________________________________________________________________________________________________________________________________________________________________
