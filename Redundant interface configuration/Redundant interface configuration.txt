@@ -1,0 +1,207 @@
+Redundant interface configuration
+
+Firewall fortigate
+
+FortiGate-VM64-KVM login: admin
+Password:
+Welcome!
+
+FortiGate-VM64-KVM # show system interface
+config system interface
+ 
+FortiGate-VM64-KVM # show system interface
+name    Name.
+REDUNDENT   static   0.0.0.0 0.0.0.0  192.168.1.100 255.255.255.0  up   disable   redundant  enable
+fortilink   static   0.0.0.0 0.0.0.0  10.255.1.1 255.255.255.0  up   disable   aggregate  enable
+port1   dhcp   0.0.0.0 0.0.0.0  192.168.208.134 255.255.255.0  up   disable   physical  enable
+port2   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical  enable
+port3   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical  enable
+port4   static   0.0.0.0 0.0.0.0  192.168.2.100 255.255.255.0  up   disable   physical  enable
+port5   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical  enable
+port6   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical  enable
+port7   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical  enable
+port8   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical  enable
+port9   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical  enable
+--More--
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Router
+
+R1#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R1(config)#
+R1(config)#int f0/0
+R1(config-if)#ip add 192.168.2.1 255.255.255.0
+R1(config-if)#no sh
+R1(config-if)#ex
+R1(config)#
+*Aug 10 21:37:37.219: %LINK-3-UPDOWN: Interface FastEthernet0/0, changed state t                                         o up
+*Aug 10 21:37:38.219: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthern                                         et0/0, changed state to up
+R1(config)#ip route 0.0.0.0 0.0.0.0 192.168.2.100
+R1(config)#do sh ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route, H - NHRP, l - LISP
+       a - application route
+       + - replicated route, % - next hop override
+
+Gateway of last resort is 192.168.2.100 to network 0.0.0.0
+
+S*    0.0.0.0/0 [1/0] via 192.168.2.100
+      192.168.2.0/24 is variably subnetted, 2 subnets, 2 masks
+C        192.168.2.0/24 is directly connected, FastEthernet0/0
+L        192.168.2.1/32 is directly connected, FastEthernet0/0
+R1(config)#
+*Aug 10 21:39:22.383: %LINK-3-UPDOWN: Interface FastEthernet0/0, changed state t                                         o down
+R1(config)#
+*Aug 10 21:39:23.387: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthern                                         et0/0, changed state to down
+R1(config)#
+*Aug 10 21:40:02.383: %LINK-3-UPDOWN: Interface FastEthernet0/0, changed state t                                         o up
+R1(config)#
+*Aug 10 21:40:03.383: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthern                                         et0/0, changed state to up
+R1(config)#do sh ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route, H - NHRP, l - LISP
+       a - application route
+       + - replicated route, % - next hop override
+
+Gateway of last resort is 192.168.2.100 to network 0.0.0.0
+
+S*    0.0.0.0/0 [1/0] via 192.168.2.100
+      192.168.2.0/24 is variably subnetted, 2 subnets, 2 masks
+C        192.168.2.0/24 is directly connected, FastEthernet0/0
+L        192.168.2.1/32 is directly connected, FastEthernet0/0
+R1(config)#{X}z
+R1#T}R
+R1#XTERM
+*Aug 10 21:41:15.175: %SYS-5-CONFIG_I: Configured from console by console
+R1#XTERM
+Translating "XTERM"
+
+Translating "XTERM"
+
+% Bad IP address or host name
+% Unknown command or computer name, or unable to find computer address
+R1#
+R1#
+R1#
+R1#
+R1#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R1(config)#
+R1(config)#do ping 192.168.1.1
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 192.168.1.1, timeout is 2 seconds:
+.....
+Success rate is 0 percent (0/5)
+R1(config)#do ping 192.168.1.1
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 192.168.1.1, timeout is 2 seconds:
+.....
+Success rate is 0 percent (0/5)
+R1(config)#do ping 192.168.1.1
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 192.168.1.1, timeout is 2 seconds:
+.....
+Success rate is 0 percent (0/5)
+R1(config)#do ping 192.168.1.1
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 192.168.1.1, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 12/18/32 ms
+R1(config)#do ping 192.168.1.1
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 192.168.1.1, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 12/15/16 ms
+R1(config)#do ping 192.168.1.1
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 192.168.1.1, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 16/16/16 ms
+R1(config)#do ping 192.168.1.1
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 192.168.1.1, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 16/16/16 ms
+R1(config)#do ping 192.168.1.1
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 192.168.1.1, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 12/15/16 ms
+R1(config)#do ping 192.168.1.1
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 192.168.1.1, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 16/16/16 ms
+R1(config)#do ping 192.168.1.1
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 192.168.1.1, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 12/15/16 ms
+R1(config)#do ping 192.168.1.1
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+pc 
+
+PC1> ping 192.168.2.1
+
+host (192.168.2.1) not reachable
+
+PC1> ip 192.168.1.1/24 192.168.1.100
+Checking for duplicate address...
+PC1 : 192.168.1.1 255.255.255.0 gateway 192.168.1.100
+
+PC1> ping 192.168.2.1
+
+192.168.2.1 icmp_seq=1 timeout
+192.168.2.1 icmp_seq=2 timeout
+192.168.2.1 icmp_seq=3 timeout
+192.168.2.1 icmp_seq=4 timeout
+192.168.2.1 icmp_seq=5 timeout
+
+PC1> ping 192.168.2.1
+
+192.168.2.1 icmp_seq=1 timeout
+192.168.2.1 icmp_seq=2 timeout
+192.168.2.1 icmp_seq=3 timeout
+192.168.2.1 icmp_seq=4 timeout
+192.168.2.1 icmp_seq=5 timeout
+
+PC1> ping 192.168.1.100
+
+84 bytes from 192.168.1.100 icmp_seq=1 ttl=255 time=0.344 ms
+84 bytes from 192.168.1.100 icmp_seq=2 ttl=255 time=0.509 ms
+84 bytes from 192.168.1.100 icmp_seq=3 ttl=255 time=0.723 ms
+84 bytes from 192.168.1.100 icmp_seq=4 ttl=255 time=0.467 ms
+84 bytes from 192.168.1.100 icmp_seq=5 ttl=255 time=0.426 ms
+
+PC1> ping 192.168.2.100
+
+192.168.2.100 icmp_seq=1 timeout
+192.168.2.100 icmp_seq=2 timeout
+192.168.2.100 icmp_seq=3 timeout
+192.168.2.100 icmp_seq=4 timeout
+192.168.2.100 icmp_seq=5 timeout
+
+PC1> ping 192.168.2.1
+
+84 bytes from 192.168.2.1 icmp_seq=1 ttl=254 time=51.132 ms
+84 bytes from 192.168.2.1 icmp_seq=2 ttl=254 time=6.382 ms
+84 bytes from 192.168.2.1 icmp_seq=3 ttl=254 time=2.987 ms
+84 bytes from 192.168.2.1 icmp_seq=4 ttl=254 time=3.754 ms
+84 bytes from 192.168.2.1 icmp_seq=5 ttl=254 time=22.673 ms
+
+PC1>
