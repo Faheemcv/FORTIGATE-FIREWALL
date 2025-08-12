@@ -1,0 +1,284 @@
+vlan interface config
+
+
+firewall
+
+FortiGate-VM64-KVM login: admin
+Password:
+You are forced to change your password. Please input a new password.
+New Password:
+Confirm Password:
+Welcome!
+
+FortiGate-VM64-KVM # show system interface
+name    Name.
+fortilink   static   0.0.0.0 0.0.0.0  10.255.1.1 255.255.255.0  up   disable   aggregate  enable
+port1   dhcp   0.0.0.0 0.0.0.0  192.168.208.136 255.255.255.0  up   disable   physical  enable
+port2   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical  enable
+port3   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical  enable
+port4   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical  enable
+port5   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical  enable
+port6   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical  enable
+port7   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical  enable
+port8   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical  enable
+port9   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical  enable
+port10   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical  enable
+ssl.root   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   tunnel  enable
+
+FortiGate-VM64-KVM # config system interface
+
+FortiGate-VM64-KVM (interface) # edit port1
+
+FortiGate-VM64-KVM (port1) # set allowaccess http https ping ssh
+
+FortiGate-VM64-KVM (port1) # end
+
+
+
+pc 1
+
+PC1>
+PC1>
+PC1>
+PC1>
+PC1>
+PC1> ip 192.168.10.1/24 192.168.10.100
+Checking for duplicate address...
+PC1 : 192.168.10.1 255.255.255.0 gateway 192.168.10.100
+
+PC1> write
+Saving startup configuration to startup.vpc
+.  done
+
+PC1> ping 192.168.10.20
+
+host (192.168.10.20) not reachable
+
+PC1> ping 192.168.10.20
+
+host (192.168.10.20) not reachable
+
+PC1> ping 192.168.20.1
+
+host (192.168.10.100) not reachable
+
+PC1> ping 192.168.20.1
+
+host (192.168.10.100) not reachable
+
+PC1> ping 192.168.1.1
+
+host (192.168.10.100) not reachable
+
+PC1> ping 192.168.30.1
+
+host (192.168.10.100) not reachable
+
+PC1> ping 192.168.10.100
+
+84 bytes from 192.168.10.100 icmp_seq=1 ttl=255 time=1.974 ms
+84 bytes from 192.168.10.100 icmp_seq=2 ttl=255 time=1.058 ms
+84 bytes from 192.168.10.100 icmp_seq=3 ttl=255 time=0.862 ms
+84 bytes from 192.168.10.100 icmp_seq=4 ttl=255 time=1.091 ms
+84 bytes from 192.168.10.100 icmp_seq=5 ttl=255 time=1.152 ms
+
+PC1>
+
+
+pc2
+
+
+PC2> ip 192.168.20.1/24 192.168.20.100
+Checking for duplicate address...
+PC2 : 192.168.20.1 255.255.255.0 gateway 192.168.20.100
+
+PC2> write
+Saving startup configuration to startup.vpc
+.  done
+
+PC2> ping 192.168.1.1
+
+
+pc3
+
+
+PC3> ip 192.168.30.1/24 192.168.30.100
+Checking for duplicate address...
+PC3 : 192.168.30.1 255.255.255.0 gateway 192.168.30.100
+
+PC3> write
+Saving startup configuration to startup.vpc
+.  done
+
+PC3> ping 192.168.30.100
+
+
+
+
+R1
+
+R1#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R1(config)#int f0/0
+R1(config-if)#ip add 192.168.1.1 255.255.255.0
+R1(config-if)#no sh
+R1(config-if)#ex
+R1(config)#
+*Aug 12 12:38:35.691: %LINK-3-UPDOWN: Interface FastEthernet0/0, changed state to up
+*Aug 12 12:38:36.691: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/0, changed state to up
+R1(config)#ip route 0.0.0.0 0.0.0.0 192.168.1.100
+R1(config)#do sh ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route, H - NHRP, l - LISP
+       a - application route
+       + - replicated route, % - next hop override
+
+Gateway of last resort is 192.168.1.100 to network 0.0.0.0
+
+S*    0.0.0.0/0 [1/0] via 192.168.1.100
+      192.168.1.0/24 is variably subnetted, 2 subnets, 2 masks
+C        192.168.1.0/24 is directly connected, FastEthernet0/0
+L        192.168.1.1/32 is directly connected, FastEthernet0/0
+R1(config)#write
+            ^
+% Invalid input detected at '^' marker.
+
+R1(config)#write memory
+            ^
+% Invalid input detected at '^' marker.
+
+R1(config)#do ping 192.168.1.100
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 192.168.1.100, timeout is 2 seconds:
+.!!!!
+Success rate is 80 percent (4/5), round-trip min/avg/max = 52/80/92 ms
+R1(config)#do ping 192.168.10.100
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 192.168.10.100, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 4/16/28 ms
+R1(config)#do ping 192.168.20.100
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 192.168.20.100, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 4/14/24 ms
+R1(config)#do ping 192.168.30.100
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 192.168.30.100, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 12/15/16 ms
+R1(config)#
+
+
+SW
+
+
+IOU1#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+IOU1(config)#
+IOU1(config)#
+IOU1(config)#vlan 10,20,30
+IOU1(config-vlan)#exit
+IOU1(config)#int e0/0
+IOU1(config-if)#sw
+IOU1(config-if)#switchport mo
+IOU1(config-if)#switchport mode acc
+IOU1(config-if)#switchport mode access
+IOU1(config-if)#sw
+IOU1(config-if)#switchport acc
+IOU1(config-if)#switchport access vl
+IOU1(config-if)#switchport access vlan 10
+IOU1(config-if)#ex
+IOU1(config)#int e0/1
+IOU1(config-if)#switchport access vlan 20
+IOU1(config-if)#switchport mode access
+IOU1(config-if)#switchport access vlan 20
+IOU1(config-if)#switchport mode access
+IOU1(config-if)#ex
+IOU1(config)#int e0/2
+IOU1(config-if)#switchport mode access
+IOU1(config-if)#switchport access vlan 30
+IOU1(config-if)#ex
+IOU1(config)#
+IOU1(config)#int e0/1
+IOU1(config-if)#sw
+IOU1(config-if)#switchport tr
+IOU1(config-if)#switchport trunk en
+IOU1(config-if)#switchport trunk encapsulation don
+IOU1(config-if)#switchport trunk encapsulation dot
+IOU1(config-if)#switchport trunk encapsulation dot1q
+IOU1(config-if)#sw
+IOU1(config-if)#switchport mo
+IOU1(config-if)#switchport mode tr
+IOU1(config-if)#switchport mode trunk
+IOU1(config-if)#ex
+IOU1(config)#
+IOU1(config)#
+*Aug 12 12:21:12.266: %LINEPROTO-5-UPDOWN: Line protocol on Interface Ethernet0/1, changed state to down
+IOU1(config)#write
+              ^
+% Invalid input detected at '^' marker.
+
+IOU1(config)#
+*Aug 12 12:21:15.266: %LINEPROTO-5-UPDOWN: Line protocol on Interface Ethernet0/1, changed state to up
+IOU1(config)#
+IOU1(config)#do sh vlan br
+
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active    Et0/3, Et1/0, Et1/1, Et1/2
+                                                Et1/3, Et2/0, Et2/1, Et2/2
+                                                Et2/3, Et3/0, Et3/1, Et3/2
+                                                Et3/3
+10   VLAN0010                         active    Et0/0
+20   VLAN0020                         active
+30   VLAN0030                         active    Et0/2
+1002 fddi-default                     act/unsup
+1003 token-ring-default               act/unsup
+1004 fddinet-default                  act/unsup
+1005 trnet-default                    act/unsup
+IOU1(config)#int e0/1
+IOU1(config-if)#sw
+IOU1(config-if)#switchport mo
+IOU1(config-if)#switchport mode acc
+IOU1(config-if)#switchport mode access
+IOU1(config-if)#s
+IOU1(config-if)#sw
+IOU1(config-if)#switchport acc
+IOU1(config-if)#switchport access vl
+IOU1(config-if)#switchport access vlan 20
+IOU1(config-if)#ex
+IOU1(config)#do sh vlan br
+
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active    Et0/3, Et1/0, Et1/1, Et1/2
+                                                Et1/3, Et2/0, Et2/1, Et2/2
+                                                Et2/3, Et3/0, Et3/1, Et3/2
+                                                Et3/3
+10   VLAN0010                         active    Et0/0
+20   VLAN0020                         active    Et0/1
+30   VLAN0030                         active    Et0/2
+1002 fddi-default                     act/unsup
+1003 token-ring-default               act/unsup
+1004 fddinet-default                  act/unsup
+1005 trnet-default                    act/unsup
+IOU1(config)#int e1/0
+IOU1(config-if)#switchport trunk encapsulation dot1q
+IOU1(config-if)#write
+*Aug 12 12:57:52.362: %LINEPROTO-5-UPDOWN: Line protocol on Interface Ethernet1/0, changed state to down
+IOU1(config-if)#switchport mode trunk
+*Aug 12 12:57:55.360: %LINEPROTO-5-UPDOWN: Line protocol on Interface Ethernet1/0, changed state to up
+IOU1(config-if)#switchport mode trunk
+IOU1(config-if)#
+*Aug 12 12:58:05.440: %LINEPROTO-5-UPDOWN: Line protocol on Interface Ethernet1/0, changed state to down
+IOU1(config-if)#
+*Aug 12 12:58:08.448: %LINEPROTO-5-UPDOWN: Line protocol on Interface Ethernet1/0, changed state to up
+IOU1(config-if)#ex
+IOU1(config)#
+
