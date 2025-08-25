@@ -1,0 +1,273 @@
+FORTIGATE FIREWALL AS DHCP SERVER
+
+FORTIGATE FIREWALL
+------------------
+
+FortiGate-VM64-KVM #
+FortiGate-VM64-KVM #
+FortiGate-VM64-KVM #
+FortiGate-VM64-KVM #
+FortiGate-VM64-KVM # Timeout
+
+
+FortiGate-VM64-KVM login: admin
+Password:
+Welcome!
+
+WARNING: File System Check Recommended! An unsafe reboot may have caused an inconsistency in the disk drive.
+It is strongly recommended that you check the file system consistency before proceeding.
+Please run 'execute disk list' and then 'execute disk scan <ref#>'.
+Note: The device will reboot and scan the disk during startup. This may take up to an hour.
+FortiGate-VM64-KVM #
+FortiGate-VM64-KVM #
+FortiGate-VM64-KVM # show system interface
+name    Name.
+fortilink   static   0.0.0.0 0.0.0.0  10.255.1.1 255.255.255.0  up   disable   aggregate  enable
+port1   dhcp   0.0.0.0 0.0.0.0  192.168.47.132 255.255.255.0  up   disable   physical  enable
+port2   static   0.0.0.0 0.0.0.0  192.168.1.100 255.255.255.0  up   disable   physical  enable
+port3   static   0.0.0.0 0.0.0.0  192.168.2.100 255.255.255.0  up   disable   physical  enable
+port4   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical  enable
+port5   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical  enable
+port6   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical  enable
+port7   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical  enable
+port8   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical  enable
+port9   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical  enable
+port10   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical  enable
+--More--
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+ROUTER 1
+---------
+R1#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R1(config)#
+R1(config)#int f0/0
+R1(config-if)#ip add dhcp
+R1(config-if)#no sh
+R1(config-if)#ex
+R1(config)#
+R1(config)#
+R1(config)#
+*Aug 22 12:49:20.999: %LINK-3-UPDOWN: Interface FastEthernet0/0, changed state to up
+*Aug 22 12:49:21.999: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthernet0/0, changed state to up
+R1(config)#telnet 192.168
+*Aug 22 12:49:33.743: %DHCP-6-ADDRESS_ASSIGN: Interface FastEthernet0/0 assigned DHCP address 192.168.1.5, mask 255.255.255.0, hostname R1
+
+R1(config)#telnet 192.168.5.1
+             ^
+% Invalid input detected at '^' marker.
+
+R1(config)#do telnet 192.168.5.1
+Trying 192.168.5.1 ... Open
+
+
+User Access Verification
+
+Password:
+R3>
+R3>
+R3>ex
+
+[Connection to 192.168.5.1 closed by foreign host]
+R1(config)#tracero
+R1(config)#do tracerouret
+                      ^
+% Invalid input detected at '^' marker.
+
+R1(config)#do traceroute
+Protocol [ip]: 192.168.5.1
+% Unknown protocol - "192.168.5.1", type "trace ?" for help
+R1(config)#do traceroute ?
+  WORD       Trace route to destination address or hostname
+  appletalk  AppleTalk Trace
+  clns       ISO CLNS Trace
+  ethernet   Ethernet Traceroute
+  ip         IP Trace
+  ipv6       IPv6 Trace
+  ipx        IPX Trace
+  mpls       MPLS LSP Trace
+  <cr>
+
+R1(config)#do traceroute
+Protocol [ip]: ip 192.168.5.1
+Target IP address: 192.168.5.1
+Source address:
+% Invalid source address
+R1(config)#do traceroute 192.168.5.1
+Type escape sequence to abort.
+Tracing the route to 192.168.5.1
+VRF info: (vrf in name/id, vrf out name/id)
+  1 192.168.1.100 32 msec 12 msec 16 msec
+  2 192.168.2.2 52 msec 28 msec 24 msec
+R1(config)#
+R1(config)#
+R1(config)#
+R1(config)#do traceroute 192.168.5.1
+Type escape sequence to abort.
+Tracing the route to 192.168.5.1
+VRF info: (vrf in name/id, vrf out name/id)
+  1 192.168.1.100 120 msec 88 msec 32 msec
+  2 192.168.2.1 60 msec 36 msec 40 msec
+R1(config)#do ping 192.168.5.1
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 192.168.5.1, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 28/41/92 ms
+R1(config)#
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+ROUTER 2
+-------------
+R2#
+R2#
+R2#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R2(config)#
+R2(config)#int f0/0
+R2(config-if)#ip add 192.168.3.2 255.255.255.0
+R2(config-if)#no sh
+R2(config-if)#ex
+R2(config)#
+*Aug 22 12:00:35.867: %LINK-3-UPDOWN: Interface FastEthernet0/0, changed state t                                         o up
+*Aug 22 12:00:36.867: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthern                                         et0/0, changed state to up
+R2(config)#int loopback 0
+R2(config-if)#ip add
+*Aug 22 12:01:00.891: %LINEPROTO-5-UPDOWN: Line protocol on Interface Loopback0,                                          changed state to up
+R2(config-if)#ip add 192.168.5.1 255.255.255.0
+R2(config-if)#no sh
+R2(config-if)#ex
+R2(config)#
+R2(config)#
+R2(config)#ip route
+% Incomplete command.
+
+R2(config)#ip route 0.0.0.0 0.0.0.0 192.168.3.1
+R2(config)#
+*Aug 22 12:08:58.271: %LINK-3-UPDOWN: Interface FastEthernet0/0, changed state t                                         o down
+*Aug 22 12:08:59.271: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthern                                         et0/0, changed state to down
+R2(config)#
+*Aug 22 12:09:30.455: %LINK-3-UPDOWN: Interface FastEthernet0/0, changed state t                                         o up
+*Aug 22 12:09:31.455: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthern                                         et0/0, changed state to up
+R2(config)#no ip route 0.0.0.0 0.0.0.0 192.168.3.1
+R2(config)#
+R2(config)#
+R2(config)#ip route 0.0.0.0 0.0.0.0 192.168.2.100
+R2(config)#no int f0/0
+% Removal of physical interfaces is not permitted
+R2(config)#int f0/0
+R2(config-if)#ip add 192.168.2.1
+% Incomplete command.
+
+R2(config-if)#ip add 192.168.2.1 255.255.255.0
+R2(config-if)#no sh
+R2(config-if)#ex
+R2(config)#do sh ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route, H - NHRP, l - LISP
+       a - application route
+       + - replicated route, % - next hop override
+
+Gateway of last resort is 192.168.2.100 to network 0.0.0.0
+
+S*    0.0.0.0/0 [1/0] via 192.168.2.100
+      192.168.2.0/24 is variably subnetted, 2 subnets, 2 masks
+C        192.168.2.0/24 is directly connected, FastEthernet0/0
+L        192.168.2.1/32 is directly connected, FastEthernet0/0
+      192.168.5.0/24 is variably subnetted, 2 subnets, 2 masks
+C        192.168.5.0/24 is directly connected, Loopback0
+L        192.168.5.1/32 is directly connected, Loopback0
+R2(config)#line vty 0 4
+R2(config-line)#password 123
+R2(config-line)#login
+R2(config-line)#exit
+R2(config)#
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+ROUTER 3
+-----------
+R3#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R3(config)#
+R3(config)#
+R3(config)#int f0/0
+R3(config-if)#ip add 192.168.4.2 255.255.255.0
+R3(config-if)#no sh
+R3(config-if)#ex
+R3(config)#
+R3(config)#
+*Aug 22 12:04:33.315: %LINK-3-UPDOWN: Interface FastEthernet0/0, changed state t                                         o up
+*Aug 22 12:04:34.315: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthern                                         et0/0, changed state to up
+R3(config)#
+R3(config)#int loopback 0
+R3(config-if)#ip add
+*Aug 22 12:04:51.815: %LINEPROTO-5-UPDOWN: Line protocol on Interface Loopback0,                                          changed state to up
+R3(config-if)#ip add 192.168.5.1 255.255.255.0
+R3(config-if)#ex
+R3(config)#
+R3(config)#
+R3(config)#ip route
+% Incomplete command.
+
+R3(config)#ip route 0.0.0.0 0.0.0.0 192.168.4.1
+R3(config)#
+*Aug 22 12:08:59.263: %LINK-3-UPDOWN: Interface FastEthernet0/0, changed state t                                         o down
+R3(config)#
+*Aug 22 12:09:00.263: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthern                                         et0/0, changed state to down
+R3(config)#
+*Aug 22 12:09:36.383: %LINK-3-UPDOWN: Interface FastEthernet0/0, changed state t                                         o up
+R3(config)#
+*Aug 22 12:09:37.387: %LINEPROTO-5-UPDOWN: Line protocol on Interface FastEthern                                         et0/0, changed state to up
+R3(config)#no ip route 0.0.0.0 0.0.0.0 192.168.4.1
+R3(config)#ip route
+% Incomplete command.
+
+R3(config)#ip route 0.0.0.0 0.0.0.0 192.168.2.100
+R3(config)#
+R3(config)#line vty 0 4
+R3(config-line)#pass
+R3(config-line)#password 123
+R3(config-line)#login
+R3(config-line)#exit
+R3(config)#enable
+R3(config)#enable pas
+R3(config)#enable password 123
+R3(config)#
+R3(config)#
+R3(config)#
+R3(config)#
+R3(config)#no int f0/0
+% Removal of physical interfaces is not permitted
+R3(config)#int f0/0
+R3(config-if)#ip add 192.168.2.2 255.255.255.0
+R3(config-if)#no sh
+R3(config-if)#ex
+R3(config)#do sh ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route, H - NHRP, l - LISP
+       a - application route
+       + - replicated route, % - next hop override
+
+Gateway of last resort is 192.168.2.100 to network 0.0.0.0
+
+S*    0.0.0.0/0 [1/0] via 192.168.2.100
+      192.168.2.0/24 is variably subnetted, 2 subnets, 2 masks
+C        192.168.2.0/24 is directly connected, FastEthernet0/0
+L        192.168.2.2/32 is directly connected, FastEthernet0/0
+      192.168.5.0/24 is variably subnetted, 2 subnets, 2 masks
+C        192.168.5.0/24 is directly connected, Loopback0
+L        192.168.5.1/32 is directly connected, Loopback0
+R3(config)#ip
+--------------------------------------------------------------------------------------------------------------------------------------------
