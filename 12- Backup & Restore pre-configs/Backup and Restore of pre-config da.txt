@@ -1,0 +1,46 @@
+Backup and Restore of pre-config data
+----------------------------------------
+Fortigate CLI to access GUI
+------------------------------
+
+FortiGate-VM64-KVM login: admin
+Password:
+You are forced to change your password. Please input a new password.
+New Password:
+Confirm Password:
+Welcome!
+
+FortiGate-VM64-KVM # show system interface
+name    Name.
+fortilink   static   0.0.0.0 0.0.0.0  10.255.1.1 255.255.255.0  up   disable   aggregate
+l2t.root   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   tunnel
+naf.root   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   tunnel
+port1   dhcp   0.0.0.0 0.0.0.0  192.168.208.146 255.255.255.0  up   disable   physical
+port2   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical
+port3   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical
+port4   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical
+port5   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical
+port6   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical
+port7   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical
+port8   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical
+port9   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical
+port10   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   physical
+ssl.root   static   0.0.0.0 0.0.0.0  0.0.0.0 0.0.0.0  up   disable   tunnel
+
+FortiGate-VM64-KVM # show system interface Timeout
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+via CLI TFTP Server
+----------------------
+
+Backup :-
+--------------
+          # execute backup tftp backup-1 192.168.1.1
+
+Restore :-
+--------------
+          # execute restore config tftp backup-1 192.168.1.1
+
+--------------------------------------------------------------------------------------------------------------------------------------------
